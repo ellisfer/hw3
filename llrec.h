@@ -4,6 +4,8 @@
 #define NULL 0
 #endif
 
+#include <iostream>
+
 /**
  * Node struct for both problems
  */
@@ -13,6 +15,7 @@ struct Node
     Node *next;
 
     Node(int v, Node* n) : val(v), next(n) {}
+
 };
 
 
@@ -76,15 +79,33 @@ Node* llfilter(Node* head, Comp pred);
 // Since template implementations should be in a header file, we will
 // implement the above function now.
 //*****************************************************************************
-
 template <typename Comp>
-Node* llfilter(Node* head, Comp pred)
-{
-    //*********************************************
-    // Provide your implementation below
-    //*********************************************
+Node* llfilter(Node* head, Comp pred){
+    if(head == nullptr){
+        return nullptr;
+    }
 
+    head->next = llfilter(head->next, pred);
 
+    // node shouldn't be there
+    if(pred(head->val)){
+        Node* temp = head->next;
+        delete head;
+        return temp;
+
+    }
+    // node should be there
+    return head;
 }
+
+// template <typename Comp>
+// Node* llfilter(Node* head, Comp pred)
+// {
+//     //*********************************************
+//     // Provide your implementation below
+//     //*********************************************
+
+
+// }
 
 #endif

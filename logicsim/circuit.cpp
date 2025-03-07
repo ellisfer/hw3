@@ -10,6 +10,8 @@
 #include "gate.h"
 #include "circuit.h"
 #include "event.h"
+//Add the m_pq data member to the Circuit class. 
+//This data member must use your Heap class from the previous part of the assignment and it must use the EventLess functor.
 
 Circuit::Circuit() : m_current_time(0)
 {
@@ -110,6 +112,17 @@ bool Circuit::parse(const char* fname)
                     m_gates.push_back(new Or2Gate(m_wires[stoi(s_in1)], m_wires[stoi(s_in2)], m_wires[stoi(s_output)]));
                 }
                 //Add code here to support the NOT gate type
+
+                if(s_type == "NOT")
+                {
+                    std::string s_in1;
+                    getline(ss, s_in1, ',');
+                    // std::string s_in2;
+                    // getline(ss, s_in2, ',');
+                    std::string s_output;
+                    getline(ss, s_output, ',');
+                    m_gates.push_back(new NotGate(m_wires[stoi(s_in1)], m_wires[stoi(s_output)]));
+                }
             }
         }
         if(line == "INJECT")

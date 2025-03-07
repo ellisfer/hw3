@@ -35,4 +35,13 @@ class Or2Gate : public Gate
       Event* update(uint64_t);
 };
 
+// In gate.h and gate.cpp add an implementation of a single input NOT gate called NotGate
+//  that derives from Gate. It should implement the following truth table:
+
+class NotGate : public Gate {
+  public:
+    NotGate(Wire*, Wire*);
+    Event* update(uint64_t);
+};
+
 #endif

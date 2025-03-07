@@ -17,6 +17,8 @@ class Circuit
     bool parse(const char*);
     void startUml(std::ostream&);
     void endUml(std::ostream&);
+
+    Heap<Event*, EventLess> m_pq;
 		
 	private:
 		uint64_t m_current_time;
