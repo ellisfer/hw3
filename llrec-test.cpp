@@ -1,7 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <functional>
+
 #include "llrec.h"
+
 using namespace std;
 
 /**
@@ -67,7 +69,12 @@ void dealloc(Node* head)
 //   function object struct declarations
 // -----------------------------------------------
 
-
+class Pred{
+    public:
+        bool operator()(int i){
+            return i%2==1;
+        }
+};
 
 
 
@@ -86,10 +93,18 @@ int main(int argc, char* argv[])
     print(head);
 
     // Test out your linked list code
+	Node* small= new Node(2, nullptr);
+    Node* large = new Node(10, nullptr);
 
+    llpivot(head, small, large, 1);
+    cout << "small " << endl;
+    print(small);
+    cout << "large " << endl;
+    print(large);
+    cout << "head " << endl;
+    print(head);
 
-
-    
+	
     return 0;
 
 }

@@ -4,19 +4,19 @@ VALGRIND := valgrind --tool=memcheck --leak-check=yes
 
 all: llrec-test
 
-#-----------------------------------------------------
-# ADD target(s) to build your llrec-test executable
-#-----------------------------------------------------
-llrec-test.o: llrec-test.o  llrec.o
-	$(CXX) $(CXXFLAGS) $(DEFS) -o $@ -c llrec-test.cpp llrec-test.o
-
+# Compile llrec-test.o from llrec-test.cpp
 llrec-test.o: llrec-test.cpp llrec.h
-	$(CXX) $(CXXFLAGS) $(DEFS) -c llrec.cpp -o llrec.o
+	$(CXX) $(CXXFLAGS) -c llrec-test.cpp -o llrec-test.o
 
+# Compile llrec.o from llrec.cpp
 llrec.o: llrec.cpp llrec.h
-	$(CXX) $(CXXFLAGS) $(DEFS) llrec-test.o llrec.o -o llrec-test
+	$(CXX) $(CXXFLAGS) -c llrec.cpp -o llrec.o
+
+# Link the final executable
+llrec-test: llrec-test.o llrec.o
+	$(CXX) $(CXXFLAGS) llrec-test.o llrec.o -o llrec-test
 
 clean:
-	rm -f *.o rh llrec-test *~
+	rm -f *.o llrec-test *~
 
-.PHONY: clean 
+.PHONY: clean
